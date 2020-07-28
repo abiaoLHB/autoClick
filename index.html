@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>autoClick</title>
+</head>
+
+<body>
+    <div>pp</div>
+    <script>
+
+        var endStr = "2020/07/28 16:06:00"
+        var endStamp = parseInt(new Date(endStr).getTime() / 1000)
+        var currentTime = (Date.parse(new Date())) / 1000
+
+        var paddingStamp = endStamp - currentTime
+        var domTag = 'pp'
+
+        countdown()
+
+        function start() {
+            var dom = document.getElementsByClassName(domTag)[0]
+            var dom = document.querySelector(domTag)
+            var dom = document.getElementById(domTag)
+            setInterval(() => {
+                console.log('抢购中')
+                if (dom) {
+                    dom.click()
+                }
+            }, 100)
+        }
+
+        // 倒计时
+        function countdown() {
+            // 计算天时分秒数
+            var day = parseInt(paddingStamp / 60 / 60 / 24)
+            var hr = parseInt(paddingStamp / 60 / 60 % 24)
+            var min = parseInt(paddingStamp / 60 % 60)
+            var sec = parseInt(paddingStamp % 60)
+
+            // 个位数前补零
+            day = day > 9 ? day : '0' + day
+            hr = hr > 9 ? hr : '0' + hr
+            min = min > 9 ? min : '0' + min
+            sec = sec > 9 ? sec : '0' + sec
+
+            var cutTimeStr_day = day.toString()
+            var cutTimeStr_h = hr.toString()
+            var cutTimeStr_m = min.toString()
+            var cutTimeStr_s = sec.toString()
+
+            console.log(cutTimeStr_day + '天=' + cutTimeStr_h + '小时=' + cutTimeStr_m + '分钟=' + cutTimeStr_s + '秒=')
+            var timer = setTimeout(function () {
+                if (paddingStamp <= 0) {
+                    clearInterval(timer)
+                    // 开始了
+                    start()
+                    return
+                }
+                countdown(paddingStamp--)
+            }, 1000)
+        }
+
+
+    </script>
+</body>
+
+</html>
